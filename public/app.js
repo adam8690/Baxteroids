@@ -96,7 +96,7 @@ window.onload = function() {
                     }
                 }
             }
-        
+        this.bulletGroup.forEachExists(screenWrap, this)
         screenWrap(this.ship)
         }
         // make sprites reappear at opposite side of canvas when they leave the screen
