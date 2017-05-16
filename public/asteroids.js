@@ -34,13 +34,19 @@ Asteroids.prototype.addAsteroids = function(){
     this.asteroidGroup.enableBody = true;
     this.asteroidGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-    var asteroid = this.asteroidGroup.create(0.25 , 0.25, 'asteroidLarge')
+    this.createAsteroid(0.25 , 0.25, 'asteroidLarge');
+    this.createAsteroid(0.75 , 0.75, 'asteroidLarge');
+    
+}
+
+
+Asteroids.prototype.createAsteroid = function (x, y, size){
+    var asteroid = this.asteroidGroup.create(x , y, size)
     asteroid.anchor.set(0.5, 0.5);
-    asteroid.body.angularVelocity = this.game.rnd.integerInRange(this['asteroidLarge'].minAngularVelocity, this['asteroidLarge'].maxAngularVelocity);
+    asteroid.body.angularVelocity = this.game.rnd.integerInRange(this[size].minAngularVelocity, this[size].maxAngularVelocity);
 
     var randomAngle = this.game.math.degToRad(this.game.rnd.angle());
-    var randomVelocity = this.game.rnd.integerInRange(this['asteroidLarge'].minVelocity, this['asteroidLarge'].maxVelocity);
+    var randomVelocity = this.game.rnd.integerInRange(this[size].minVelocity, this[size].maxVelocity);
 
     this.game.physics.arcade.velocityFromRotation(randomAngle, randomVelocity, asteroid.body.velocity);
-    
 }
