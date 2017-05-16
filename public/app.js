@@ -1,6 +1,6 @@
 window.onload = function() {
 
-        var game = new Phaser.Game(500, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+        var game = new Phaser.Game(500, 500, Phaser.AUTO, '', {preload: preload, create: create, update: update});
 
         var Baxteroids = {
             shipAngularVelocity: 300,
@@ -10,7 +10,40 @@ window.onload = function() {
             bulletSpeed: 420,
             bulletInterval: 100,
             bulletLifespan: 2000,
-            bulletMaxCount: 30
+            bulletMaxCount: 30,
+        };
+
+        var asteroidProperties = {
+            startingAsteroids: 4,
+            maxAsteroids: 20,
+            incrementAsteroids: 2,
+
+            asteroidLarge: {
+                minVelocity: 50,
+                maxVelocity: 150,
+                minAngularVelocity: 0, 
+                maxAngularVelocity: 200,
+                score: 20,
+                nextSize: 'asteroidMedium'
+            },
+            asteroidMedium: {
+                minVelocity: 50,
+                maxVelocity: 150,
+                minAngularVelocity: 0, 
+                maxAngularVelocity: 200,
+                score: 35,
+                nextSize: 'asteroidSmall'
+            },
+            asteroidSmall: {
+                minVelocity: 50,
+                maxVelocity: 150,
+                minAngularVelocity: 0, 
+                maxAngularVelocity: 200,
+                score: 50,
+            }
+        }
+        var gameState = {
+            asteroidCount: null
         };
 
 
@@ -19,6 +52,9 @@ window.onload = function() {
             // load image assets before game starts
             game.load.image('ship', 'ship.png');
             game.load.image('bullet', 'bullet.png');
+            game.load.image('asteroidSmall', 'asteroidSmall.png');
+            game.load.image('asteroidMedium', 'asteroidMedium.png');
+            game.load.image('asteroidLarge', 'asteroidLarge.png');
         }
 // called after preload
         function create () {
@@ -52,6 +88,25 @@ window.onload = function() {
             this.bulletGroup.setAll('lifespan', Baxteroids.bulletLifespan);
             // bulletinterval starts at zero
             this.bulletInterval = 0;
+
+
+            // add asteroids
+            this.asteroidGroup = game.add.group();
+            console.log('create', this)
+            this.asteroidGroup.enableBody = true;
+            this.asteroidGroup.physicsBodyType = Phaser.Physics.ARCADE;
+            // the number of asteroids on screen
+            gameState.asteroidCount = asteroidProperties.startingAsteroids;
+            
+            // createAsteroid(0.25, 0.25, 'asteroidLarge');
+            var asteroid = this.asteroidGroup.create(0.25 , 0.25, 'asteroidLarge')
+            asteroid.anchor.set(0.5, 0.5);
+            asteroid.body.angularVelocity = game.rnd.integerInRange(asteroidProperties['asteroidLarge'].minAngularVelocity, asteroidProperties['asteroidLarge'].maxAngularVelocity);
+
+            var randomAngle = game.math.degToRad(game.rnd.angle());
+            var randomVelocity = game.rnd.integerInRange(asteroidProperties['asteroidLarge'].minVelocity, asteroidProperties['asteroidLarge'].maxVelocity);
+
+            game.physics.arcade.velocityFromRotation(randomAngle, randomVelocity, asteroid.body.velocity);
 
             // set the ships physics settings
             game.physics.enable(this.ship, Phaser.Physics.ARCADE)
@@ -100,7 +155,8 @@ window.onload = function() {
                     }
                 }
             }
-        this.bulletGroup.forEachExists(screenWrap, this)
+        this.bulletGroup.forEachExists(screenWrap, this);
+        this.asteroidGroup.forEachExists(screenWrap, this);
         screenWrap(this.ship)
         }
         // make sprites reappear at opposite side of canvas when they leave the screen
@@ -118,6 +174,17 @@ window.onload = function() {
             else if(sprite.y > game.height){
                 sprite.y = 0;
             }
+        }
+
+        function createAsteroid(x, y, size){
+            var asteroid = this.asteroidGroup.create(x , y, size)
+            asteroid.anchor.set(0.5, 0.5);
+            asteroid.body.angularVelocity = game.rnd.integerInRange(asteroidProperties[size].minAngularVelocity, asteroidProperties[size].maxAngularVelocity);
+
+            var randomAngle = game.math.degToRad(game.rnd.angle());
+            var randomVelocity = game.rnd.integerInRange(asteroidProperties[size].minVelocity, asteroidProperties[size].maxVelocity);
+
+            game.physics.arcade.velocityFromRotation(randomAngle, randomVelocity, asteroid.body.velocity);
         }
 
     };
