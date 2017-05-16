@@ -52,3 +52,8 @@ Asteroids.prototype.createAsteroid = function (x, y, size){
 
     this.game.physics.arcade.velocityFromRotation(randomAngle, randomVelocity, asteroid.body.velocity);
 }
+
+Asteroids.prototype.asteroidCollision = function(target, asteroid){
+    target.kill();
+    asteroid.kill();
+}

@@ -7,8 +7,7 @@ window.onload = function() {
         var ship = new Ship(game);
 
         var gameState = {
-            asteroidCount: null,
-            bulletInterval: 0
+            shipLives: ship.startingLives,
         };
 
 
@@ -46,8 +45,6 @@ window.onload = function() {
 
             // the number of asteroids on screen
             gameState.asteroidCount = asteroids.startingAsteroids;
-            
-            // createAsteroid(0.25, 0.25, 'asteroidLarge');
     
             // add key input to the game
             this.keys = game.input.keyboard.createCursorKeys();
@@ -97,6 +94,10 @@ window.onload = function() {
         bullets.bulletGroup.forEachExists(screenWrap, this);
         asteroids.asteroidGroup.forEachExists(screenWrap, this);
         screenWrap(ship.sprite)
+
+        game.physics.arcade.overlap(bullets.bulletGroup, asteroids.asteroidGroup, asteroids.asteroidCollision, null, this)
+        game.physics.arcade.overlap(ship.sprite, asteroids.asteroidGroup, asteroids.asteroidCollision, null, this)
+
         }
         // make sprites reappear at opposite side of canvas when they leave the screen
         function screenWrap(sprite){
