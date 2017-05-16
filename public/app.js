@@ -22,28 +22,38 @@ window.onload = function() {
             // change background colour
             game.stage.backgroundColor = '#000000';
 
-            // add ball to middle of game area
+            // start game physics
+            game.physics.startSystem(Phaser.Physics.ARCADE);
+
+            // add ship to middle of game area
             this.ship = game.add.sprite(game.world.centerX, game.world.centerY, 'ship');
             this.ship.anchor.set(0.5, 0.5);
-            
+
+            // set the ships physics settings
+            game.physics.enable(this.ship, Phaser.Physics.ARCADE)
+            this.ship.body.drag.set(100);
+            this.ship.body.maxVelocity.set(300);
+
+
             // add key input to the game
             this.keys = game.input.keyboard.createCursorKeys();
         }
 // called once every frame (60hz)
         function update () {
-            // poll arrow keys to move the ball
+            // poll arrow keys to move the ship
             if(this.keys.left.isDown){
-                this.ship.x -= Baxteroids.velocity
+                this.ship.body.angularVelocity = -300;
             }
-            if(this.keys.right.isDown){
-                this.ship.x += Baxteroids.velocity
+            else if(this.keys.right.isDown){
+                this.ship.body.angularVelocity = 300;
             }
-            if(this.keys.down.isDown){
-                this.ship.y += Baxteroids.velocity
-            }
+            else(this.ship.body.angularVelocity = 0);
+
             if(this.keys.up.isDown){
-                this.ship.y -= Baxteroids.velocity
+                console.log(this.ship.rotation)
+                game.physics.arcade.accelerationFromRotation((this.ship.rotation + 4.71), 200, this.ship.body.acceleration)
             }
+            else(this.ship.body.acceleration.set(0));
             
         // prevent the ball from leaving the boundaries of the canvas
         var halfWidth = this.ship.width / 2
