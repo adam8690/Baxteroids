@@ -53,26 +53,28 @@ window.onload = function() {
             else(this.ship.body.angularVelocity = 0);
 
             if(this.keys.up.isDown){
-                // ship rotation has to be offset by 270 degrees(1.5rads) so that it starts flying upwards
+                // ship rotation has to be offset by 270 degrees(1.5*pi rads) so that forwards is in the direction of its pointy end
                 game.physics.arcade.accelerationFromRotation((this.ship.rotation + 4.71), Baxteroids.shipAcceleration, this.ship.body.acceleration)
             }
             else(this.ship.body.acceleration.set(0));
             
-        // prevent the ball from leaving the boundaries of the canvas
-        var halfWidth = this.ship.width / 2
-        var halfHeight = this.ship.height / 2
+        
+        screenWrap(this.ship)
+        }
+        // make sprites reappear at opposite side of canvas when they leave the screen
+        function screenWrap(sprite){
+            if(sprite.x < 0){
+                sprite.x = game.width;
+            }
+            else if(sprite.x > game.width){
+                sprite.x = 0;
+            }
 
-            if((this.ship.x - halfWidth) < 0){
-                this.ship.x = halfWidth;
+            if(sprite.y < 0){
+                sprite.y = game.height;
             }
-            if((this.ship.x + halfWidth) > game.width){
-                this.ship.x = game.width - halfWidth;
-            }
-            if((this.ship.y - halfHeight) < 0){
-                this.ship.y = halfHeight;
-            }
-            if((this.ship.y + halfHeight) > game.height){
-                this.ship.y = game.height - halfHeight;
+            else if(sprite.y > game.height){
+                sprite.y = 0;
             }
         }
 
