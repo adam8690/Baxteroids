@@ -1,6 +1,6 @@
 function Asteroids(game){
     this.game = game;
-    this.startingAsteroids = 4;
+    this.startingAsteroids = 2;
     this.maxAsteroids = 20;
     this.incrementAsteroids = 2;
     this.asteroidGroup = null;
@@ -34,9 +34,11 @@ Asteroids.prototype.addAsteroids = function(){
     this.asteroidGroup.enableBody = true;
     this.asteroidGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-    this.createAsteroid(0.25 , 0.25, 'asteroidLarge');
-    this.createAsteroid(0.75 , 0.75, 'asteroidLarge');
-    
+    for(i=0; i < this.startingAsteroids; i++){
+        var x = Math.random() * this.game.width;
+        var y = Math.random() * this.game.height;
+        this.createAsteroid(x , y, 'asteroidLarge');
+    }
 }
 
 
