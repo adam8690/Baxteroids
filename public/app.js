@@ -3,7 +3,10 @@ window.onload = function() {
         var game = new Phaser.Game(500, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
         var Baxteroids = {
-            // velocity: 8
+            shipAngularVelocity: 300,
+            shipAcceleration: 300,
+            shipDrag: 100,
+            shipMaxVelocity: 400
         };
 
 // called first
@@ -31,8 +34,8 @@ window.onload = function() {
 
             // set the ships physics settings
             game.physics.enable(this.ship, Phaser.Physics.ARCADE)
-            this.ship.body.drag.set(100);
-            this.ship.body.maxVelocity.set(300);
+            this.ship.body.drag.set(Baxteroids.shipDrag);
+            this.ship.body.maxVelocity.set(Baxteroids.shipMaxVelocity);
 
 
             // add key input to the game
@@ -42,16 +45,16 @@ window.onload = function() {
         function update () {
             // poll arrow keys to move the ship
             if(this.keys.left.isDown){
-                this.ship.body.angularVelocity = -300;
+                this.ship.body.angularVelocity = -Baxteroids.shipAngularVelocity;
             }
             else if(this.keys.right.isDown){
-                this.ship.body.angularVelocity = 300;
+                this.ship.body.angularVelocity = Baxteroids.shipAngularVelocity;
             }
             else(this.ship.body.angularVelocity = 0);
 
             if(this.keys.up.isDown){
-                console.log(this.ship.rotation)
-                game.physics.arcade.accelerationFromRotation((this.ship.rotation + 4.71), 200, this.ship.body.acceleration)
+                // ship rotation has to be offset by 270 degrees(1.5rads) so that it starts flying upwards
+                game.physics.arcade.accelerationFromRotation((this.ship.rotation + 4.71), Baxteroids.shipAcceleration, this.ship.body.acceleration)
             }
             else(this.ship.body.acceleration.set(0));
             
