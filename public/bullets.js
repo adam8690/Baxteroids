@@ -1,7 +1,7 @@
 function Bullets(game){
     this.game = game;
     this.speed = 420;
-    this.interval = 100;
+    this.interval = 0;
     this.lifespan = 2000;
     this.maxCount = 30;
     this.bulletGroup = null;

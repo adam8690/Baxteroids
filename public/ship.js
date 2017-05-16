@@ -12,4 +12,7 @@ function Ship(game){
 Ship.prototype.addSprite = function(){
     this.sprite = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'ship');
     this.sprite.anchor.set(0.5, 0.5)
+    this.game.physics.enable(this.sprite, Phaser.Physics.ARCADE)
+    this.sprite.body.drag.set(this.drag);
+    this.sprite.body.maxVelocity.set(this.maxVelocity);  
 }

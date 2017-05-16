@@ -38,48 +38,23 @@ window.onload = function() {
 
             // add ship to middle of game area
             ship.addSprite();
-            // this.ship = game.add.sprite(game.world.centerX, game.world.centerY, 'ship');
-            // this.ship.anchor.set(0.5, 0.5);
 
             // add bullets to game
             bullets.addBullets();
-            // this.bulletGroup = game.add.group();
-            // this.bulletGroup.enableBody = true;
-            // // set physics type on bullets
-            // this.bulletGroup.physicsBodyType = Phaser.Physics.ARCADE;
-            // // create multiple bullet sprites
-            // this.bulletGroup.createMultiple(Baxteroids.bulletMaxCount, 'bullet');
-            // // set the point from where the bullets are created.
-            // this.bulletGroup.setAll('anchor.x', 0.5);
-            // this.bulletGroup.setAll('anchor.y', 0.5);
-            // // sets how long the bullets exist
-            // this.bulletGroup.setAll('lifespan', Baxteroids.bulletLifespan);
-            // bulletinterval starts at zero
             
-
-
             // add asteroids
             asteroids.addAsteroids()
-            // this.asteroidGroup = game.add.group();
-            // console.log('create', this)
-            // this.asteroidGroup.enableBody = true;
-            // this.asteroidGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
             // the number of asteroids on screen
             gameState.asteroidCount = asteroids.startingAsteroids;
             
             // createAsteroid(0.25, 0.25, 'asteroidLarge');
-
-
-            // set the ships physics settings
-            game.physics.enable(ship.sprite, Phaser.Physics.ARCADE)
-            ship.sprite.body.drag.set(ship.drag);
-            ship.sprite.body.maxVelocity.set(ship.maxVelocity);      
-
+    
             // add key input to the game
             this.keys = game.input.keyboard.createCursorKeys();
         }
-// called once every frame (60hz)
+
+        // called once every frame (60hz)
         function update () {
             // poll arrow keys to move the ship
             if(this.keys.left.isDown){
