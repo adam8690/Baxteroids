@@ -2,14 +2,14 @@ window.onload = function() {
 
         var game = new Phaser.Game(500, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
-        var BallWorld = {
+        var Baxteroids = {
             velocity: 8
         };
 
 // called first
         function preload () {
             // load image assets before game starts
-            game.load.image('ball', 'ball.png');
+            game.load.image('ship', 'ship.png');
         }
 // called after preload
         function create () {
@@ -19,11 +19,11 @@ window.onload = function() {
             game.scale.pageAlignVertically = true;
 
             // change background colour
-            game.stage.backgroundColor = '#87CEEB';
+            game.stage.backgroundColor = '#000000';
 
             // add ball to middle of game area
-            this.ball = game.add.sprite(game.world.centerX, game.world.centerY, 'ball');
-            this.ball.anchor.set(0.5, 0.5);
+            this.ship = game.add.sprite(game.world.centerX, game.world.centerY, 'ship');
+            this.ship.anchor.set(0.5, 0.5);
             
             // add key input to the game
             this.keys = game.input.keyboard.createCursorKeys();
@@ -32,33 +32,33 @@ window.onload = function() {
         function update () {
             // poll arrow keys to move the ball
             if(this.keys.left.isDown){
-                this.ball.x -= BallWorld.velocity
+                this.ship.x -= Baxteroids.velocity
             }
             if(this.keys.right.isDown){
-                this.ball.x += BallWorld.velocity
+                this.ship.x += Baxteroids.velocity
             }
             if(this.keys.down.isDown){
-                this.ball.y += BallWorld.velocity
+                this.ship.y += Baxteroids.velocity
             }
             if(this.keys.up.isDown){
-                this.ball.y -= BallWorld.velocity
+                this.ship.y -= Baxteroids.velocity
             }
             
         // prevent the ball from leaving the boundaries of the canvas
-        var halfWidth = this.ball.width / 2
-        var halfHeight = this.ball.height / 2
+        var halfWidth = this.ship.width / 2
+        var halfHeight = this.ship.height / 2
 
-            if((this.ball.x - halfWidth) < 0){
-                this.ball.x = halfWidth;
+            if((this.ship.x - halfWidth) < 0){
+                this.ship.x = halfWidth;
             }
-            if((this.ball.x + halfWidth) > game.width){
-                this.ball.x = game.width - halfWidth;
+            if((this.ship.x + halfWidth) > game.width){
+                this.ship.x = game.width - halfWidth;
             }
-            if((this.ball.y - halfHeight) < 0){
-                this.ball.y = halfHeight;
+            if((this.ship.y - halfHeight) < 0){
+                this.ship.y = halfHeight;
             }
-            if((this.ball.y + halfHeight) > game.height){
-                this.ball.y = game.height - halfHeight;
+            if((this.ship.y + halfHeight) > game.height){
+                this.ship.y = game.height - halfHeight;
             }
         }
 
