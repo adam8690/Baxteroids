@@ -3,13 +3,14 @@ window.onload = function() {
         var game = new Phaser.Game(500, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
         var Baxteroids = {
-            velocity: 8
+            // velocity: 8
         };
 
 // called first
         function preload () {
             // load image assets before game starts
             game.load.image('ship', 'ship.png');
+            game.load.image('bullet', 'bullet.png');
         }
 // called after preload
         function create () {
