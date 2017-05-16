@@ -8,7 +8,7 @@ window.onload = function() {
             shipDrag: 100,
             shipMaxVelocity: 400,
             bulletSpeed: 420,
-            bulletInterval: 50,
+            bulletInterval: 100,
             bulletLifespan: 2000,
             bulletMaxCount: 30
         };
@@ -44,10 +44,13 @@ window.onload = function() {
             // set physics type on bullets
             this.bulletGroup.physicsBodyType = Phaser.Physics.ARCADE;
             // create multiple bullet sprites
-            this.bulletGroup.createMultiple(Baxteroids.bulletMaxCount, 'bullet')
-            this.bulletGroup.setAll('anchor.x', -5);
-            this.bulletGroup.setAll('anchor.y', 3);
+            this.bulletGroup.createMultiple(Baxteroids.bulletMaxCount, 'bullet');
+            // set the point from where the bullets are created.
+            this.bulletGroup.setAll('anchor.x', 0.5);
+            this.bulletGroup.setAll('anchor.y', 0.5);
+            // sets how long the bullets exist
             this.bulletGroup.setAll('lifespan', Baxteroids.bulletLifespan);
+            // bulletinterval starts at zero
             this.bulletInterval = 0;
 
             // set the ships physics settings
@@ -77,12 +80,13 @@ window.onload = function() {
 
             if(this.keys.down.isDown){
                 if(game.time.now > this.bulletInterval){
+                    // get the first item in the bulletGroup, false argument retrieves one that does not already exist.
                     var bullet = this.bulletGroup.getFirstExists(false)
 
                     if(bullet){
                         var length = this.ship.width * 0.5;
-                        var x = this.ship.x +  (Math.cos(this.ship.rotation) * length);
-                        var y = this.ship.y +  (Math.sin(this.ship.rotation) * length);
+                        var x = this.ship.x +  (Math.cos(this.ship.rotation + 4.71) * length);
+                        var y = this.ship.y +  (Math.sin(this.ship.rotation + 4.71) * length);
 
                         bullet.rotation = (this.ship.rotation + 4.71);
 
