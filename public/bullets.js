@@ -2,10 +2,10 @@ function Bullets(game){
     this.game = game;
     this.speed = 420;
     this.interval = 0;
+    this.rate = 100;
     this.lifespan = 2000;
     this.maxCount = 30;
     this.bulletGroup = null;
-
 }
 
 Bullets.prototype.addBullets = function(){

@@ -53,8 +53,9 @@ window.onload = function() {
             this.keys = game.input.keyboard.createCursorKeys();
         }
 
-        // called once every frame (60hz)
+    // called once every frame (60hz)
         function update () {
+            
             // poll arrow keys to move the ship
             if(this.keys.left.isDown){
                 ship.sprite.body.angularVelocity = -ship.angularVelocity;
@@ -70,6 +71,7 @@ window.onload = function() {
             }
             else(ship.sprite.body.acceleration.set(0));
 
+            // bullets key
             if(this.keys.down.isDown){
                 if(game.time.now > bullets.interval){
                     // get the first item in the bulletGroup, false argument retrieves one that does not already exist.
@@ -87,7 +89,7 @@ window.onload = function() {
                         bullet.rotation = (ship.sprite.rotation + 4.71);
 
                         game.physics.arcade.velocityFromRotation((ship.sprite.rotation + 4.71), bullets.speed, bullet.body.velocity);
-                        bullets.interval = game.time.now + 100;
+                        bullets.interval = game.time.now + bullets.rate;
                         
                     }
                 }
