@@ -6,7 +6,6 @@ window.onload = function() {
         var asteroids = new Asteroids(game);
         var ship = new Ship(game);
 
-        
         var gameState = {
             asteroidCount: null,
             bulletInterval: 0
