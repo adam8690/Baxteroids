@@ -22,6 +22,7 @@ window.onload = function() {
             game.load.spritesheet('explosion', 'assets/explosion.png', 128, 128)
 
             game.load.audio('boom', 'assets/sounds/boom.ogg');
+            game.load.audio('pew', 'assets/sounds/pew.ogg');
         }
 
 // called after preload
@@ -101,6 +102,9 @@ window.onload = function() {
                         game.physics.arcade.velocityFromRotation((ship.sprite.rotation + 4.71), bullets.speed, bullet.body.velocity);
                         bullets.interval = game.time.now + bullets.rate;
                         
+                        var pew = game.add.audio('pew');
+                        pew.play()
+
                     }
                 }
             }
@@ -164,6 +168,8 @@ window.onload = function() {
                         game.physics.arcade.velocityFromRotation((ship.sprite.rotation + 4.71), bullets.speed, bullet.body.velocity);
                         bullets.interval = game.time.now + bullets.rate;
                         
+
+
                     }
                 }
             }
