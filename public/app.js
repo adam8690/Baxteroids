@@ -1,6 +1,6 @@
 window.onload = function() {
 
-        var game = new Phaser.Game(500, 500, Phaser.AUTO, '', {preload: preload, create: create, update: update});
+        var game = new Phaser.Game(700, 500, Phaser.AUTO, '', {preload: preload, create: create, update: update});
 
         var bullets = new Bullets(game);
         var asteroids = new Asteroids(game);
@@ -18,10 +18,14 @@ window.onload = function() {
             game.load.image('asteroidSmall', 'assets/asteroidSmall.png');
             game.load.image('asteroidMedium', 'assets/asteroidMedium.png');
             game.load.image('asteroidLarge', 'assets/asteroidLarge.png');
+            game.load.image('background', 'assets/background.jpg')
         }
 
 // called after preload
         function create () {
+
+            // background image
+            game.add.sprite(0,0, 'background')
 
             // center the game on the page
             game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;

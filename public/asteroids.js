@@ -8,28 +8,28 @@ function Asteroids(game){
     this.asteroidGroup = null;
     this.asteroidLarge = {
         minVelocity: 50,
-                maxVelocity: 150,
-                minAngularVelocity: 0, 
-                maxAngularVelocity: 200,
-                score: 20,
-                nextSize: 'asteroidMedium',
-                pieces: 2,
+        maxVelocity: 150,
+        minAngularVelocity: 0,
+        maxAngularVelocity: 200,
+        score: 20,
+        nextSize: 'asteroidMedium',
+        pieces: 2,
     };
     this.asteroidMedium = {
-         minVelocity: 50,
-                maxVelocity: 150,
-                minAngularVelocity: 0, 
-                maxAngularVelocity: 200,
-                score: 35,
-                nextSize: 'asteroidSmall',
-                pieces: 2,
+        minVelocity: 50,
+        maxVelocity: 150,
+        minAngularVelocity: 0, 
+        maxAngularVelocity: 200,
+        score: 35,
+        nextSize: 'asteroidSmall',
+        pieces: 2,
     };
     this.asteroidSmall = {
         minVelocity: 50,
-                maxVelocity: 150,
-                minAngularVelocity: 0, 
-                maxAngularVelocity: 200,
-                score: 50,
+        maxVelocity: 150,
+        minAngularVelocity: 0, 
+        maxAngularVelocity: 200,
+        score: 50,
     };
 }
 

@@ -1,7 +1,7 @@
 function Ship(game){
     this.game = game;
     this.angularVelocity = 300;
-    this.acceleration = 300;
+    this.acceleration = 350;
     this.drag = 100;
     this.maxVelocity = 400;
     this.sprite = null;
@@ -21,6 +21,7 @@ Ship.prototype.addSprite = function(){
     // display the number of lives the ship has in top corner.
     this.livesText = this.game.add.text(20, 20, "Lives: " + this.startingLives, {font: '20px Arial', fill: '#FFFFFF', align: 'center'})
     this.livesText.anchor.set(0,0);
+    this.sprite.scale.set(0.1);
 }
 
 Ship.prototype.resetShip = function(){
