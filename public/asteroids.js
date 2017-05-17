@@ -78,7 +78,15 @@ Asteroids.prototype.checkLevelComplete = function(){
 
 // called when a bullet hits an asteroid
 Asteroids.prototype.destroy = function(asteroid){
-    
+    // explosion animation
+    var explosion = this.game.add.sprite(asteroid.worldPosition.x, asteroid.worldPosition.y, 'explosion');
+    explosion.anchor.set(0.5)
+    explosion.animations.add('explode');
+    explosion.animations.play('explode', 30, false, true)
+    // sound
+    var boom = this.game.add.audio('boom');
+    boom.play()
+
     this.score += this[asteroid.key].score;
     this.checkLevelComplete()
 
@@ -91,6 +99,10 @@ Asteroids.prototype.destroy = function(asteroid){
 
 Asteroids.prototype.asteroidCollision = function(target, asteroid){
     
+    
+
+
+
     target.kill();
     asteroid.kill();
 
@@ -99,5 +111,6 @@ Asteroids.prototype.asteroidCollision = function(target, asteroid){
     }
     else{
         this.asteroids.destroy(asteroid)
+        
     }
 }

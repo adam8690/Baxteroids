@@ -19,6 +19,9 @@ window.onload = function() {
             game.load.image('asteroidMedium', 'assets/asteroidMedium.png');
             game.load.image('asteroidLarge', 'assets/asteroidLarge.png');
             game.load.image('background', 'assets/background.jpg')
+            game.load.spritesheet('explosion', 'assets/explosion.png', 128, 128)
+
+            game.load.audio('boom', 'assets/sounds/boom.ogg');
         }
 
 // called after preload
