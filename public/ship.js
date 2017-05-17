@@ -1,9 +1,9 @@
 function Ship(game){
     this.game = game;
     this.angularVelocity = 300;
-    this.acceleration = 350;
+    this.acceleration = 400;
     this.drag = 100;
-    this.maxVelocity = 400;
+    this.maxVelocity = 600;
     this.sprite = null;
     this.startingLives = 3;
     this.livesText = null;

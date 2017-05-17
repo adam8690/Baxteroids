@@ -99,10 +99,6 @@ Asteroids.prototype.destroy = function(asteroid){
 
 Asteroids.prototype.asteroidCollision = function(target, asteroid){
     
-    
-
-
-
     target.kill();
     asteroid.kill();
 
@@ -110,7 +106,6 @@ Asteroids.prototype.asteroidCollision = function(target, asteroid){
         this.ship.destroy()
     }
     else{
-        this.asteroids.destroy(asteroid)
-        
+        this.asteroids.destroy(asteroid)        
     }
 }

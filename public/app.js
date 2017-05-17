@@ -131,5 +131,4 @@ window.onload = function() {
                 sprite.y = 0;
             }
         }
-
     };
