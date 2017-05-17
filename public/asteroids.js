@@ -10,7 +10,8 @@ function Asteroids(game){
                 minAngularVelocity: 0, 
                 maxAngularVelocity: 200,
                 score: 20,
-                nextSize: 'asteroidMedium'
+                nextSize: 'asteroidMedium',
+                pieces: 2,
     };
     this.asteroidMedium = {
          minVelocity: 50,
@@ -18,7 +19,8 @@ function Asteroids(game){
                 minAngularVelocity: 0, 
                 maxAngularVelocity: 200,
                 score: 35,
-                nextSize: 'asteroidSmall'
+                nextSize: 'asteroidSmall',
+                pieces: 2,
     };
     this.asteroidSmall = {
         minVelocity: 50,
@@ -42,27 +44,40 @@ Asteroids.prototype.addAsteroids = function(){
 }
 
 
-Asteroids.prototype.createAsteroid = function (x, y, size){
-    var asteroid = this.asteroidGroup.create(x , y, size)
-    asteroid.anchor.set(0.5, 0.5);
-    asteroid.body.angularVelocity = this.game.rnd.integerInRange(this[size].minAngularVelocity, this[size].maxAngularVelocity);
+Asteroids.prototype.createAsteroid = function (x, y, size, pieces){
 
-    var randomAngle = this.game.math.degToRad(this.game.rnd.angle());
-    var randomVelocity = this.game.rnd.integerInRange(this[size].minVelocity, this[size].maxVelocity);
+    if(pieces === undefined){ pieces = 1 }
 
-    this.game.physics.arcade.velocityFromRotation(randomAngle, randomVelocity, asteroid.body.velocity);
+    for(var i=0; i < pieces; i++){
+        var asteroid = this.asteroidGroup.create(x , y, size)
+        asteroid.anchor.set(0.5, 0.5);
+        asteroid.body.angularVelocity = this.game.rnd.integerInRange(this[size].minAngularVelocity, this[size].maxAngularVelocity);
+
+        var randomAngle = this.game.math.degToRad(this.game.rnd.angle());
+        var randomVelocity = this.game.rnd.integerInRange(this[size].minVelocity, this[size].maxVelocity);
+
+        this.game.physics.arcade.velocityFromRotation(randomAngle, randomVelocity, asteroid.body.velocity);
+    }
 }
+
+// called when a bullet hits an asteroid
+Asteroids.prototype.destroy = function(asteroid){
+    if(this[asteroid.key].nextSize){
+        var nextAsteroidSize = this[asteroid.key].nextSize
+        this.createAsteroid(asteroid.worldPosition.x, asteroid.worldPosition.y, nextAsteroidSize, this[asteroid.key].pieces)
+    }
+}
+
 
 Asteroids.prototype.asteroidCollision = function(target, asteroid){
     
     target.kill();
     asteroid.kill();
 
-    console.log(this)
-    this.destroy()
-}
-// called when a bullet hits and asteroid
-Asteroids.prototype.destroy = function(){
-    console.log('asteroid destroy function')
-    
+    if(this.ship){
+        this.ship.destroy()
+    }
+    else{
+        this.asteroids.destroy(asteroid)
+    }
 }

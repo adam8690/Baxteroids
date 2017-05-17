@@ -97,8 +97,8 @@ window.onload = function() {
         asteroids.asteroidGroup.forEachExists(screenWrap, this);
         screenWrap(ship.sprite)
 
-        game.physics.arcade.overlap(bullets.bulletGroup, asteroids.asteroidGroup, asteroids.asteroidCollision, null, asteroids)
-        game.physics.arcade.overlap(ship.sprite, asteroids.asteroidGroup, asteroids.asteroidCollision, null, ship)
+        game.physics.arcade.overlap(bullets.bulletGroup, asteroids.asteroidGroup, asteroids.asteroidCollision, null, {this: this, asteroids: asteroids})
+        game.physics.arcade.overlap(ship.sprite, asteroids.asteroidGroup, asteroids.asteroidCollision, null, {this: this, ship: ship})
 
         }
         // make sprites reappear at opposite side of canvas when they leave the screen
