@@ -67,7 +67,6 @@ window.onload = function() {
             asteroids.scoreText.setText("Score: " + asteroids.score);
 
             // poll arrow keys to move the ship
-            // checkForInput()
             if(this.key_left.isDown){
                 ship.sprite.body.angularVelocity = -ship.angularVelocity;
             }
@@ -130,48 +129,6 @@ window.onload = function() {
             }
             else if(sprite.y > game.height){
                 sprite.y = 0;
-            }
-        }
-
-        function checkForInput(){
-            if(this.keys.left.isDown){
-                ship.sprite.body.angularVelocity = -ship.angularVelocity;
-            }
-            else if(this.keys.right.isDown){
-                ship.sprite.body.angularVelocity = ship.angularVelocity;
-            }
-            else(ship.sprite.body.angularVelocity = 0);
-
-            if(this.keys.up.isDown){
-                // ship rotation has to be offset by 270 degrees(1.5*pi rads) so that forwards is in the direction of its pointy end
-                game.physics.arcade.accelerationFromRotation((ship.sprite.rotation + 4.71), ship.acceleration, ship.sprite.body.acceleration)
-            }
-            else(ship.sprite.body.acceleration.set(0));
-
-            // bullets key
-            if(this.keys.down.isDown){
-                if(game.time.now > bullets.interval){
-                    // get the first item in the bulletGroup, false argument retrieves one that does not already exist.
-                    var bullet = bullets.bulletGroup.getFirstExists(false)
-
-                    if(bullet){
-                        var length = ship.sprite.width * 0.5;
-                        var x = ship.sprite.x +  (Math.cos(ship.sprite.rotation + 4.71) * length);
-                        var y = ship.sprite.y +  (Math.sin(ship.sprite.rotation + 4.71) * length);
-
-                        bullet.rotation = (ship.sprite.rotation + 4.71);
-
-                        bullet.reset(x, y);
-                        bullet.lifespan = bullets.lifespan;
-                        bullet.rotation = (ship.sprite.rotation + 4.71);
-
-                        game.physics.arcade.velocityFromRotation((ship.sprite.rotation + 4.71), bullets.speed, bullet.body.velocity);
-                        bullets.interval = game.time.now + bullets.rate;
-                        
-
-
-                    }
-                }
             }
         }
 
