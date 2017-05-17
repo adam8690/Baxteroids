@@ -64,9 +64,7 @@ Asteroids.prototype.createAsteroid = function (x, y, size, pieces){
 }
 
 Asteroids.prototype.nextLevel = function(){
-    console.log('next level');
-
-    this.addAsteroids()
+    this.game.time.events.add(Phaser.Timer.SECOND * 2, this.addAsteroids, this);
 }
 
 Asteroids.prototype.checkLevelComplete = function(){
