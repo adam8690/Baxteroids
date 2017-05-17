@@ -89,7 +89,7 @@ window.onload = function() {
 
                         bullet.reset(x, y);
                         bullet.lifespan = bullets.lifespan;
-                        bullet.rotation = (ship.sprite.rotation + 4.71);
+                        bullet.rotation = (ship.sprite.rotation);
 
                         game.physics.arcade.velocityFromRotation((ship.sprite.rotation + 4.71), bullets.speed, bullet.body.velocity);
                         bullets.interval = game.time.now + bullets.rate;

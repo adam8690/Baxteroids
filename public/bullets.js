@@ -16,5 +16,7 @@ Bullets.prototype.addBullets = function(){
     this.bulletGroup.setAll('anchor.x', 0.5);
     this.bulletGroup.setAll('anchor.y', 0.5);
     this.bulletGroup.setAll('lifespan', this.lifespan);
+    this.bulletGroup.setAll('scale.x', 0.15)
+    this.bulletGroup.setAll('scale.y', 0.15)
 }
 

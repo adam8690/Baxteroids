@@ -8,6 +8,8 @@ function Ship(game){
     this.startingLives = 3;
     this.livesText = null;
     this.timeToReset = 3;
+    this.timeInvulnerable = 3;
+    this.isInvulnerable = false;
 }
 
 Ship.prototype.addSprite = function(){
