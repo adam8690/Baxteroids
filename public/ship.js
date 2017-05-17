@@ -17,7 +17,8 @@ Ship.prototype.addSprite = function(){
     this.sprite.body.drag.set(this.drag);
     this.sprite.body.maxVelocity.set(this.maxVelocity);
     // display the number of lives the ship has in top corner.
-    this.livesText = this.game.add.text(100, 20, this.startingLives, {font: '20px Arial', fill: '#FFFFFF', align: 'center'})    
+    this.livesText = this.game.add.text(20, 20, "Lives: " + this.startingLives, {font: '20px Arial', fill: '#FFFFFF', align: 'center'})
+    this.livesText.anchor.set(0,0);
 }
 
 Ship.prototype.resetShip = function(){
@@ -33,7 +34,7 @@ Ship.prototype.gameOver = function(){
 // called when the ship hits an asteroid
 Ship.prototype.destroy = function(){
     this.startingLives --;
-    this.livesText.setText(this.startingLives)
+    this.livesText.setText("Lives: " + this.startingLives)
     if(this.startingLives > 0){
         this.resetShip();
     }
