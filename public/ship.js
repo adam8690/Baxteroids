@@ -36,7 +36,6 @@ Ship.prototype.gameOver = function(){
 
 // called when the ship hits an asteroid
 Ship.prototype.destroy = function(){
-    console.log(this)
     var explosion = this.game.add.sprite(this.sprite.worldPosition.x, this.sprite.worldPosition.y, 'explosion');
     explosion.anchor.set(0.5)
     explosion.animations.add('explode');
