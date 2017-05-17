@@ -37,7 +37,7 @@ Asteroids.prototype.addAsteroids = function(){
     this.asteroidGroup = this.game.add.group()
     this.asteroidGroup.enableBody = true;
     this.asteroidGroup.physicsBodyType = Phaser.Physics.ARCADE;
-    this.scoreText = this.game.add.text(this.game.width - 100, 20, this.score, {font: '20px Arial', fill: '#FFFFFF', align: 'center'})
+    
 
     for(i=0; i < this.startingAsteroids; i++){
         var x = Math.random() * this.game.width;
@@ -65,22 +65,28 @@ Asteroids.prototype.createAsteroid = function (x, y, size, pieces){
 
 Asteroids.prototype.nextLevel = function(){
     console.log('next level');
+
     this.addAsteroids()
 }
 
-// called when a bullet hits an asteroid
-Asteroids.prototype.destroy = function(asteroid){
-    this.score += this[asteroid.key].score;
-    this.scoreText.setText(this.score);
-
-    if(!this.asteroidGroup.countLiving()){
+Asteroids.prototype.checkLevelComplete = function(){
+        if(!this.asteroidGroup.countLiving()){
         this.asteroidGroup.removeAll(true);
         this.startingAsteroids += this.incrementAsteroids
         this.nextLevel()
     }
-    else if(this[asteroid.key].nextSize){
-        var nextAsteroidSize = this[asteroid.key].nextSize
-        this.createAsteroid(asteroid.worldPosition.x, asteroid.worldPosition.y, nextAsteroidSize, this[asteroid.key].pieces)
+}
+
+
+// called when a bullet hits an asteroid
+Asteroids.prototype.destroy = function(asteroid){
+    
+    this.score += this[asteroid.key].score;
+    this.checkLevelComplete()
+
+    if(this[asteroid.key].nextSize){
+    var nextAsteroidSize = this[asteroid.key].nextSize
+    this.createAsteroid(asteroid.worldPosition.x, asteroid.worldPosition.y, nextAsteroidSize, this[asteroid.key].pieces)
     }
 }
 

@@ -42,7 +42,7 @@ window.onload = function() {
             
             // add asteroids
             asteroids.addAsteroids()
-
+            asteroids.scoreText = this.game.add.text(this.game.width - 100, 20, this.score, {font: '20px Arial', fill: '#FFFFFF', align: 'center'})
             // add key input to the game
             this.key_left = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
             this.key_right = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
@@ -54,6 +54,9 @@ window.onload = function() {
     // called once every frame (60hz)
         function update () {
             
+            // keep score updated
+            asteroids.scoreText.setText(asteroids.score);
+
             // poll arrow keys to move the ship
             // checkForInput()
             if(this.key_left.isDown){
