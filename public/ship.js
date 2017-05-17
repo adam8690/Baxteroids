@@ -17,7 +17,7 @@ Ship.prototype.addSprite = function(){
     this.sprite.body.drag.set(this.drag);
     this.sprite.body.maxVelocity.set(this.maxVelocity);
     // display the number of lives the ship has in top corner.
-    this.livesText = this.game.add.text(20, 20, this.startingLives, {font: '20px Arial', fill: '#FFFFFF', align: 'center'})  
+    this.livesText = this.game.add.text(100, 20, this.startingLives, {font: '20px Arial', fill: '#FFFFFF', align: 'center'})    
 }
 
 Ship.prototype.resetShip = function(){
