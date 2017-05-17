@@ -10,7 +10,6 @@ window.onload = function() {
             shipLives: ship.startingLives,
         };
 
-
 // called first
         function preload () {
             // load image assets before game starts
@@ -20,8 +19,10 @@ window.onload = function() {
             game.load.image('asteroidMedium', 'assets/asteroidMedium.png');
             game.load.image('asteroidLarge', 'assets/asteroidLarge.png');
         }
+
 // called after preload
         function create () {
+
             // center the game on the page
             game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             game.scale.pageAlignHorizontally = true;
@@ -33,7 +34,6 @@ window.onload = function() {
             // start game physics
             game.physics.startSystem(Phaser.Physics.ARCADE);
 
-
             // add ship to middle of game area
             ship.addSprite();
 
@@ -42,34 +42,41 @@ window.onload = function() {
             
             // add asteroids
             asteroids.addAsteroids()
-
+            
             // the number of asteroids on screen
             gameState.asteroidCount = asteroids.startingAsteroids;
-    
+
             // add key input to the game
-            this.keys = game.input.keyboard.createCursorKeys();
+            this.key_left = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+            this.key_right = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+            this.key_thrust = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+            this.key_fire = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+            // add text to game, there is a bug in phaser v2.7.8 which stops this working, so don't use it.
+            var lives = game.add.text(20, 20, gameState.shipLives, {font: '20px Arial', fill: '#FFFFFF', align: 'center'})
         }
 
     // called once every frame (60hz)
         function update () {
             
             // poll arrow keys to move the ship
-            if(this.keys.left.isDown){
+            // checkForInput()
+            if(this.key_left.isDown){
                 ship.sprite.body.angularVelocity = -ship.angularVelocity;
             }
-            else if(this.keys.right.isDown){
+            else if(this.key_right.isDown){
                 ship.sprite.body.angularVelocity = ship.angularVelocity;
             }
             else(ship.sprite.body.angularVelocity = 0);
 
-            if(this.keys.up.isDown){
+            if(this.key_thrust.isDown){
                 // ship rotation has to be offset by 270 degrees(1.5*pi rads) so that forwards is in the direction of its pointy end
                 game.physics.arcade.accelerationFromRotation((ship.sprite.rotation + 4.71), ship.acceleration, ship.sprite.body.acceleration)
             }
             else(ship.sprite.body.acceleration.set(0));
 
             // bullets key
-            if(this.keys.down.isDown){
+            if(this.key_fire.isDown){
                 if(game.time.now > bullets.interval){
                     // get the first item in the bulletGroup, false argument retrieves one that does not already exist.
                     var bullet = bullets.bulletGroup.getFirstExists(false)
@@ -115,4 +122,45 @@ window.onload = function() {
                 sprite.y = 0;
             }
         }
+
+        function checkForInput(){
+            if(this.keys.left.isDown){
+                ship.sprite.body.angularVelocity = -ship.angularVelocity;
+            }
+            else if(this.keys.right.isDown){
+                ship.sprite.body.angularVelocity = ship.angularVelocity;
+            }
+            else(ship.sprite.body.angularVelocity = 0);
+
+            if(this.keys.up.isDown){
+                // ship rotation has to be offset by 270 degrees(1.5*pi rads) so that forwards is in the direction of its pointy end
+                game.physics.arcade.accelerationFromRotation((ship.sprite.rotation + 4.71), ship.acceleration, ship.sprite.body.acceleration)
+            }
+            else(ship.sprite.body.acceleration.set(0));
+
+            // bullets key
+            if(this.keys.down.isDown){
+                if(game.time.now > bullets.interval){
+                    // get the first item in the bulletGroup, false argument retrieves one that does not already exist.
+                    var bullet = bullets.bulletGroup.getFirstExists(false)
+
+                    if(bullet){
+                        var length = ship.sprite.width * 0.5;
+                        var x = ship.sprite.x +  (Math.cos(ship.sprite.rotation + 4.71) * length);
+                        var y = ship.sprite.y +  (Math.sin(ship.sprite.rotation + 4.71) * length);
+
+                        bullet.rotation = (ship.sprite.rotation + 4.71);
+
+                        bullet.reset(x, y);
+                        bullet.lifespan = bullets.lifespan;
+                        bullet.rotation = (ship.sprite.rotation + 4.71);
+
+                        game.physics.arcade.velocityFromRotation((ship.sprite.rotation + 4.71), bullets.speed, bullet.body.velocity);
+                        bullets.interval = game.time.now + bullets.rate;
+                        
+                    }
+                }
+            }
+        }
+
     };
