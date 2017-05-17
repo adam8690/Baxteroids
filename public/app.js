@@ -52,8 +52,6 @@ window.onload = function() {
             this.key_thrust = game.input.keyboard.addKey(Phaser.Keyboard.UP);
             this.key_fire = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-            // add text to game, there is a bug in phaser v2.7.8 which stops this working, so don't use it.
-            var lives = game.add.text(20, 20, gameState.shipLives, {font: '20px Arial', fill: '#FFFFFF', align: 'center'})
         }
 
     // called once every frame (60hz)
@@ -102,8 +100,12 @@ window.onload = function() {
         asteroids.asteroidGroup.forEachExists(screenWrap, this);
         screenWrap(ship.sprite)
 
-        game.physics.arcade.overlap(bullets.bulletGroup, asteroids.asteroidGroup, asteroids.asteroidCollision, null, this)
-        game.physics.arcade.overlap(ship.sprite, asteroids.asteroidGroup, asteroids.asteroidCollision, null, this)
+        game.physics.arcade.overlap(bullets.bulletGroup, asteroids.asteroidGroup, asteroids.asteroidCollision, null, asteroids)
+        game.physics.arcade.overlap(ship.sprite, asteroids.asteroidGroup, asteroids.asteroidCollision, null, ship)
+
+        // check ship has enough lives and respawn
+        
+
 
         }
         // make sprites reappear at opposite side of canvas when they leave the screen

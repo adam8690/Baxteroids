@@ -54,6 +54,15 @@ Asteroids.prototype.createAsteroid = function (x, y, size){
 }
 
 Asteroids.prototype.asteroidCollision = function(target, asteroid){
+    
     target.kill();
     asteroid.kill();
+
+    console.log(this)
+    this.destroy()
+}
+// called when a bullet hits and asteroid
+Asteroids.prototype.destroy = function(){
+    console.log('asteroid destroy function')
+    
 }
