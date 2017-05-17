@@ -5,7 +5,7 @@ function Ship(game){
     this.drag = 100;
     this.maxVelocity = 400;
     this.sprite = null;
-    this.startingLives = 1;
+    this.startingLives = 2;
     this.livesText = null;
     this.timeToReset = 3;
 }
@@ -20,8 +20,15 @@ Ship.prototype.addSprite = function(){
     this.livesText = this.game.add.text(20, 20, this.startingLives, {font: '20px Arial', fill: '#FFFFFF', align: 'center'})  
 }
 
+Ship.prototype.resetShip = function(){
+    this.sprite.reset(this.game.world.centerX, this.game.world.centerY);
+}
+
 // called when the ship hits an asteroid
 Ship.prototype.destroy = function(){
     this.startingLives --;
     this.livesText.setText(this.startingLives)
+    if(this.startingLives){
+        this.resetShip();
+    }
 }

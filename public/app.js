@@ -42,9 +42,6 @@ window.onload = function() {
             
             // add asteroids
             asteroids.addAsteroids()
-            
-            // the number of asteroids on screen
-            gameState.asteroidCount = asteroids.startingAsteroids;
 
             // add key input to the game
             this.key_left = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
@@ -102,10 +99,6 @@ window.onload = function() {
 
         game.physics.arcade.overlap(bullets.bulletGroup, asteroids.asteroidGroup, asteroids.asteroidCollision, null, asteroids)
         game.physics.arcade.overlap(ship.sprite, asteroids.asteroidGroup, asteroids.asteroidCollision, null, ship)
-
-        // check ship has enough lives and respawn
-        
-
 
         }
         // make sprites reappear at opposite side of canvas when they leave the screen
