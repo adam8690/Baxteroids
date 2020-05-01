@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "express": "^4.17.1",
     "phaser": "^2.6.2"
   },
   "devDependencies": {},
