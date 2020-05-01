@@ -8,3 +8,6 @@ npm and nodejs
 1. npm i
 1. npm build
 1. npm start
+
+## Screenshots
+![Gameplay](Screenshot1.jpg "Gameplay")
